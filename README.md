@@ -1,4 +1,6 @@
-<img width="354" alt="image" src="https://github.com/shaden-2000/SDA-Capstone2/assets/100734021/cac6c9a2-0ac0-42d6-ab26-0c1756df700b"># Big Data Engineering Project on Azure
+
+
+# Big Data Engineering Project on Azure
 
 ### Project Overview
 
@@ -151,7 +153,7 @@ predictions = lr_model.transform(final)
 
 - Utilize Power BI to create visualizations.
 
-<img width="1207" alt="Screenshot 1445-11-17 at 8 48 36 PM" src="https://github.com/shaden-2000/SDA-Capstone2/assets/100734021/6cf874b5-2088-4abc-a4a6-66ba7dd56079">
+<img width="1207" alt="Screenshot 1445-11-17 at 8 48 36 PM" src="https://github.com/shaden-2000/SDA-Capstone2/assets/100734021/4ea1d7bd-aed4-4342-818e-1b1a144ac524">
  
 
 
