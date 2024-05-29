@@ -153,7 +153,8 @@ predictions = lr_model.transform(final)
 
 - Utilize Power BI to create visualizations.
 
-<img width="1207" alt="Screenshot 1445-11-17 at 8 48 36 PM" src="https://github.com/shaden-2000/SDA-Capstone2/assets/100734021/4ea1d7bd-aed4-4342-818e-1b1a144ac524">
+<img width="1279" alt="Screenshot 1445-11-08 at 4 01 59 PM" src="https://github.com/shaden-2000/SDA-Capstone2/assets/100734021/a2c6ea90-7aa2-4072-9689-b157db2c4d37">
+
  
 
 
