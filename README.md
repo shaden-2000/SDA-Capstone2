@@ -1,4 +1,4 @@
-# Big Data Engineering Project on Azure
+<img width="354" alt="image" src="https://github.com/shaden-2000/SDA-Capstone2/assets/100734021/cac6c9a2-0ac0-42d6-ab26-0c1756df700b"># Big Data Engineering Project on Azure
 
 ### Project Overview
 
@@ -64,4 +64,104 @@ The 3 tables are located in 2 data sources, RDS and Azure Storage Blob Container
 <img width="1512" alt="Screenshot 1445-11-20 at 8 25 11 PM" src="https://github.com/shaden-2000/SDA-Capstone2/assets/100734021/62a5bbeb-4227-41e7-9242-041222bd4faa">
 
 <img width="1512" alt="Screenshot 1445-11-20 at 8 25 42 PM" src="https://github.com/shaden-2000/SDA-Capstone2/assets/100734021/b8f75243-b2bb-4ecb-8fdd-bc9c0f2e9993">
+
+
+
+
+### Part Two: Data Transformation ( **Transform** )
+
+<img width="942" alt="Screenshot 1445-11-20 at 7 02 43 PM" src="https://github.com/shaden-2000/SDA-Capstone2/assets/100734021/150722ff-0e21-47a7-a420-b26df54d5ad2">
+
+### 1. Goal is to categorize the user posts into relevant topics for : 
+- Better content organization
+- Improve searchability
+- Personalized recommendations
+  
+### 2. The data transformation process will be handled in the Azure Data Factory pipeline. A Databricks notebook will be used to process data using spark, run the ML model, and transform data for subsequent BI dashboards.
+
+
+### Data Transformation steps 
+
+- Model Selection ( Sentiment analysis ,Logistic regression algorithm )
+. The model were selected based on :
+1. Nature of the data -> Categorical 
+2. Problem type       ->  Classification 
+
+- The machine learning process 
+<img width="1225" alt="Screenshot 1445-11-21 at 1 40 28 PM" src="https://github.com/shaden-2000/SDA-Capstone2/assets/100734021/fcc32d62-d87c-4c33-aad9-88e88ff3e3fa">
+
+1. **First** : load the data that will be used for the trainning which is ( post - post types )
+
+2. **Second**: Preprocessing the data to be ready for the model to use ،by using this (NLP) technique
+- Removing noise
+```
+cleaned = df.withColumn('text', regexp_replace('text', r"http\S+", "")) \
+                    .withColumn('text', regexp_replace('text', r"[^a-zA-z]", " ")) \
+                    .withColumn('text', regexp_replace('text', r"\s+", " ")) \
+                    .withColumn('text', lower('text')) \
+                    .withColumn('text', trim('text')) 
+```
+- Tokenization
+```
+tokenizer = Tokenizer(inputCol="text", outputCol="tokens")
+tokenized = tokenizer.transform(cleaned)
+```
+- Remove stop words
+```
+stopword_remover = StopWordsRemover(inputCol="tokens", outputCol="filtered")
+stopword = stopword_remover.transform(tokenized)
+```
+- feature extraction
+```
+cv = CountVectorizer(vocabSize=2**16, inputCol="filtered", outputCol='cv')
+cv_model = cv.fit(stopword)
+text_cv = cv_model.transform(stopword)
+idf = IDF(inputCol='cv', outputCol="features", minDocFreq=5) #minDocFreq: remove sparse terms
+idf_model = idf.fit(text_cv)
+text_idf = idf_model.transform(text_cv)
+label_encoder = StringIndexer(inputCol = "tags", outputCol = "label")
+le_model = label_encoder.fit(text_idf)
+final = le_model.transform(text_idf)
+```
+
+**Now data is ready for the training**
+3. **Third**: Train the model. Feed the data into the algorithm to create the model by train , test the model
+```
+lr = LogisticRegression(maxIter=100)
+lr_model = lr.fit(final)
+predictions = lr_model.transform(final)
+```
+5. **Fourth**: Evaluate Model Performance 
+
+<img width="823" alt="image" src="https://github.com/shaden-2000/SDA-Capstone2/assets/100734021/6757e53c-4f0b-40a6-96ba-9e64f0bc1363">
+
+
+5. **Finally**: Run model to make the prediction
+  
+
+<img width="1208" alt="Screenshot 1445-11-21 at 1 51 10 PM" src="https://github.com/shaden-2000/SDA-Capstone2/assets/100734021/29e76b0a-08c4-41db-a62b-3124e726c25b">
+
+
+- The model will be Saved to Azure storage
+
+
+
+
+### Data Visualization (Real-Time) Dashboard 
+
+- Utilize Power BI to create visualizations.
+
+<img width="1207" alt="Screenshot 1445-11-17 at 8 48 36 PM" src="https://github.com/shaden-2000/SDA-Capstone2/assets/100734021/6cf874b5-2088-4abc-a4a6-66ba7dd56079">
+ 
+
+
+
+
+
+
+ 
+
+
+
+
 
