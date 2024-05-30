@@ -144,6 +144,7 @@ predictions = lr_model.transform(final)
 <img width="1208" alt="Screenshot 1445-11-21 at 1 51 10 PM" src="https://github.com/shaden-2000/SDA-Capstone2/assets/100734021/29e76b0a-08c4-41db-a62b-3124e726c25b">
 
 
+### Part Three: Loading Data  ( **Load** )
 - The model will be Saved to Azure storage
 
 
